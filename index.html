@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is the Rapid Trauma Solution Right for You? — Avinoam Lerner</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --brand: #3cb0d6;
+  --brand-dark: #2a90b3;
+  --brand-light: #e8f6fb;
+  --brand-text: #0d4a5e;
+  --amber: #d4840a;
+  --amber-light: #fff4e0;
+}
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #fff;
+  color: #1a1a1a;
+  padding: 2rem 1rem;
+}
+.shell { max-width: 640px; margin: 0 auto; }
+.progress-bar { height: 3px; background: #e0e0e0; border-radius: 2px; margin-bottom: 2rem; }
+.progress-fill { height: 3px; background: var(--brand); border-radius: 2px; transition: width 0.4s ease; }
+.step { display: none; }
+.step.active { display: block; }
+.step-label { font-size: 12px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: Arial, sans-serif; }
+.question { font-size: 20px; font-weight: 500; color: #1a1a1a; line-height: 1.4; margin-bottom: 0.5rem; }
+.subtext { font-size: 14px; color: #666; margin-bottom: 1.5rem; line-height: 1.6; font-family: Arial, sans-serif; }
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 2rem; }
+.opt {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; border: 1px solid #e0e0e0; border-radius: 10px;
+  cursor: pointer; background: #fff;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left; width: 100%; font-family: Arial, sans-serif;
+}
+.opt:hover { border-color: var(--brand); background: var(--brand-light); }
+.opt.selected { border-color: var(--brand); background: var(--brand-light); }
+.opt.selected .opt-dot { background: var(--brand); border-color: var(--brand); }
+.opt.selected .opt-dot::after { opacity: 1; }
+.opt-dot {
+  width: 18px; height: 18px; min-width: 18px; border-radius: 50%;
+  border: 1.5px solid #ccc; background: #fff; margin-top: 2px;
+  position: relative; transition: all 0.15s;
+}
+.opt-dot::after {
+  content: ''; position: absolute; inset: 3px;
+  border-radius: 50%; background: white; opacity: 0;
+}
+.opt-content { flex: 1; }
+.opt-title { font-size: 15px; font-weight: 500; color: #1a1a1a; line-height: 1.4; display: block; }
+.opt-sub { font-size: 13px; color: #777; margin-top: 2px; line-height: 1.5; display: block; }
+.nav { display: flex; justify-content: space-between; align-items: center; }
+.btn-back {
+  font-size: 14px; color: #888; background: none; border: none;
+  cursor: pointer; padding: 8px 0; font-family: Arial, sans-serif;
+}
+.btn-back:hover { color: #333; }
+.btn-next {
+  font-size: 14px; font-weight: 500; color: white;
+  background: var(--brand); border: none; border-radius: 8px;
+  padding: 10px 24px; cursor: pointer; opacity: 0.35;
+  pointer-events: none; transition: opacity 0.2s; font-family: Arial, sans-serif;
+}
+.btn-next.enabled { opacity: 1; pointer-events: auto; }
+.btn-next.enabled:hover { background: var(--brand-dark); }
+.result { display: none; }
+.result.show { display: block; }
+.result-card { border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; font-family: Arial, sans-serif; }
+.result-card.strong { background: var(--brand-light); border: 1.5px solid var(--brand); }
+.result-card.possible { background: #f7f7f7; border: 1px solid #ddd; }
+.result-card.explore { background: var(--amber-light); border: 1px solid #f0c070; }
+.result-heading { font-size: 20px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.5rem; font-family: Georgia, serif; }
+.result-body { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 1rem; }
+.result-signals { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
+.signal { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #333; line-height: 1.5; }
+.signal-dot { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--brand); margin-top: 7px; }
+.signal-dot.amber { background: var(--amber); }
+.cta-btn {
+  display: block; width: 100%; text-align: center; padding: 14px;
+  background: var(--brand); color: white; font-size: 15px; font-weight: 500;
+  border: none; border-radius: 8px; cursor: pointer;
+  text-decoration: none; margin-bottom: 10px; font-family: Arial, sans-serif;
+}
+.cta-btn:hover { background: var(--brand-dark); }
+.cta-btn.amber-btn { background: var(--amber); }
+.cta-btn.amber-btn:hover { background: #b86e08; }
+.cta-secondary {
+  display: block; width: 100%; text-align: center; padding: 12px;
+  background: none; color: #777; font-size: 14px;
+  border: 1px solid #ddd; border-radius: 8px; cursor: pointer;
+  font-family: Arial, sans-serif; text-decoration: none;
+}
+.cta-secondary:hover { background: #f5f5f5; }
+.retake { font-size: 13px; color: #999; text-align: center; margin-top: 1rem; cursor: pointer; text-decoration: underline; font-family: Arial, sans-serif; }
+.intro { font-family: Arial, sans-serif; padding-bottom: 1rem; }
+.intro-eyebrow { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); margin-bottom: 0.75rem; font-weight: 500; }
+.intro-title { font-size: 26px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.75rem; line-height: 1.3; font-family: Georgia, serif; }
+.intro-body { font-size: 15px; color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
+.start-btn {
+  display: inline-block; padding: 12px 28px; background: var(--brand);
+  color: white; font-size: 15px; font-weight: 500; border: none;
+  border-radius: 8px; cursor: pointer; font-family: Arial, sans-serif;
+}
+.start-btn:hover { background: var(--brand-dark); }
+.result-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+.result-icon-circle {
+  width: 40px; height: 40px; min-width: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+@media (max-width: 480px) {
+  body { padding: 1.25rem 0.75rem; }
+  .question { font-size: 18px; }
+  .opt { padding: 12px 14px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div id="intro" class="intro">
+    <div class="intro-eyebrow">Rapid Trauma Solution</div>
+    <div class="intro-title">Is this the right fit for you?</div>
+    <div class="intro-body">
+      Seven short questions. No right or wrong answers — just an honest look at whether the RTS is likely to be a good match for where you are right now.<br><br>
+      It takes about 2 minutes.
+    </div>
+    <button class="start-btn" onclick="startQuiz()">Begin the assessment</button>
+  </div>
+
+  <div id="quiz" style="display:none">
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+    <div class="step active" data-step="0">
+      <div class="step-label">Question 1 of 7</div>
+      <div class="question">How would you describe the thing you're carrying?</div>
+      <div class="subtext">Think about what brings you here. What pattern, feeling, or limitation is most alive for you?</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,0,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">A specific pattern I can point to</span><span class="opt-sub">A recurring reaction, belief, or situation that keeps showing up in my life</span></span></button>
+        <button class="opt" onclick="select(this,0,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Something from my past that still affects me</span><span class="opt-sub">An experience — or experiences — I haven't fully moved through</span></span></button>
+        <button class="opt" onclick="select(this,0,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">A general heaviness or anxiety</span><span class="opt-sub">I'm not sure of the exact source, but something feels stuck</span></span></button>
+        <button class="opt" onclick="select(this,0,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm not sure yet</span><span class="opt-sub">Still trying to understand what I'm looking for</span></span></button>
+      </div>
+      <div class="nav"><span></span><button class="btn-next" id="next0" onclick="nextStep(1)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="1">
+      <div class="step-label">Question 2 of 7</div>
+      <div class="question">Have you tried other forms of therapy or healing?</div>
+      <div class="subtext">There's no right answer here — this just helps me understand where you are in your journey.</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,1,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Yes — and I still feel stuck despite it</span><span class="opt-sub">I've put in real effort, but the core pattern hasn't shifted the way I hoped</span></span></button>
+        <button class="opt" onclick="select(this,1,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Yes — it helped, but something remains</span><span class="opt-sub">I've made progress, but there's a layer I haven't been able to reach</span></span></button>
+        <button class="opt" onclick="select(this,1,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm new to this kind of work</span><span class="opt-sub">I haven't explored healing in a structured way before</span></span></button>
+        <button class="opt" onclick="select(this,1,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm in active therapy now</span><span class="opt-sub">Working with a therapist currently and looking for something complementary</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(0)">← Back</button><button class="btn-next" id="next1" onclick="nextStep(2)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="2">
+      <div class="step-label">Question 3 of 7</div>
+      <div class="question">How long have you been living with this pattern?</div>
+      <div class="subtext">Duration often reflects how deeply the pattern is rooted — and how ready someone is for a different approach.</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,2,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Years — possibly most of my life</span><span class="opt-sub">This has been with me for a long time</span></span></button>
+        <button class="opt" onclick="select(this,2,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Several years</span><span class="opt-sub">Long enough that I'm tired of managing it</span></span></button>
+        <button class="opt" onclick="select(this,2,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">One to a few years</span><span class="opt-sub">It started with something specific and hasn't resolved</span></span></button>
+        <button class="opt" onclick="select(this,2,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Relatively recent</span><span class="opt-sub">Something happened not long ago and I'm still in the thick of it</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(1)">← Back</button><button class="btn-next" id="next2" onclick="nextStep(3)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="3">
+      <div class="step-label">Question 4 of 7</div>
+      <div class="question">How does this pattern affect your daily life?</div>
+      <div class="subtext">Choose what feels most true.</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,3,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">It significantly limits how I live, love, or work</span><span class="opt-sub">I can see the cost clearly — in relationships, choices, or how I feel about myself</span></span></button>
+        <button class="opt" onclick="select(this,3,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">It's a consistent weight I carry</span><span class="opt-sub">Not debilitating, but it's always there — affecting my sense of ease or freedom</span></span></button>
+        <button class="opt" onclick="select(this,3,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">It surfaces in specific situations</span><span class="opt-sub">I can function well mostly, but certain triggers bring it up powerfully</span></span></button>
+        <button class="opt" onclick="select(this,3,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm mostly okay but want to go deeper</span><span class="opt-sub">Curious about what's underneath, rather than in active distress</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(2)">← Back</button><button class="btn-next" id="next3" onclick="nextStep(4)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="4">
+      <div class="step-label">Question 5 of 7</div>
+      <div class="question">How do you feel about working with the subconscious mind?</div>
+      <div class="subtext">This approach goes beneath conscious analysis. How does that feel to you?</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,4,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">That's exactly what I've been looking for</span><span class="opt-sub">I've sensed that the conscious level isn't where the real work needs to happen</span></span></button>
+        <button class="opt" onclick="select(this,4,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Curious and open</span><span class="opt-sub">I don't know exactly what it means, but I'm willing to explore</span></span></button>
+        <button class="opt" onclick="select(this,4,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">A little uncertain, but interested</span><span class="opt-sub">I have some questions or skepticism, but something draws me here</span></span></button>
+        <button class="opt" onclick="select(this,4,0)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Honestly, skeptical</span><span class="opt-sub">I'm not sure I believe this kind of approach can work</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(3)">← Back</button><button class="btn-next" id="next4" onclick="nextStep(5)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="5">
+      <div class="step-label">Question 6 of 7</div>
+      <div class="question">Are you ready for something to actually change — not just be understood?</div>
+      <div class="subtext">This is a meaningful question. Understanding a pattern and resolving it are different things. This work asks you to be ready for the second.</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,5,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Yes — I'm done managing this</span><span class="opt-sub">I want to resolve it, not just understand it better</span></span></button>
+        <button class="opt" onclick="select(this,5,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I think so — I'm getting there</span><span class="opt-sub">There's a part of me that's ready, even if another part is uncertain</span></span></button>
+        <button class="opt" onclick="select(this,5,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I mostly want to understand it better first</span><span class="opt-sub">I'm in the information-gathering stage right now</span></span></button>
+        <button class="opt" onclick="select(this,5,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm not sure</span><span class="opt-sub">Honest answer — I don't know what I'm ready for yet</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(4)">← Back</button><button class="btn-next" id="next5" onclick="nextStep(6)">Next</button></div>
+    </div>
+
+    <div class="step" data-step="6">
+      <div class="step-label">Question 7 of 7</div>
+      <div class="question">How are you doing right now, in terms of overall stability?</div>
+      <div class="subtext">This work goes deep. It's important that you're in a place where deep work is supportive, not destabilizing.</div>
+      <div class="options">
+        <button class="opt" onclick="select(this,6,3)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Stable — I'm functioning and grounded</span><span class="opt-sub">I have challenges, but I'm not in crisis</span></span></button>
+        <button class="opt" onclick="select(this,6,2)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">Mostly stable, with harder days</span><span class="opt-sub">I have a foundation, even if things are difficult</span></span></button>
+        <button class="opt" onclick="select(this,6,1)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">It's been rough — I'm in a tender place</span><span class="opt-sub">Things feel fragile or overwhelming right now</span></span></button>
+        <button class="opt" onclick="select(this,6,0)"><span class="opt-dot"></span><span class="opt-content"><span class="opt-title">I'm in active crisis or acute distress</span><span class="opt-sub">I need stabilization support right now</span></span></button>
+      </div>
+      <div class="nav"><button class="btn-back" onclick="prevStep(5)">← Back</button><button class="btn-next" id="next6" onclick="showResult()">See my result</button></div>
+    </div>
+  </div>
+
+  <div id="result" class="result">
+
+    <div id="result-card-strong" class="result-card strong" style="display:none">
+      <div class="result-icon-row">
+        <div class="result-icon-circle" style="background:var(--brand)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="white" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="result-heading">The RTS sounds like a strong fit</div>
+      </div>
+      <div class="result-body">Based on what you've shared, you carry a clear pattern, you've been at it long enough to be ready for something different, and you're genuinely open to working at the subconscious level. That's exactly the profile this work was designed for.</div>
+      <div class="result-signals" id="signals-strong"></div>
+      <a class="cta-btn" href="https://www.avinoamlerner.com/apply">Book a free consultation &rarr;</a>
+    </div>
+
+    <div id="result-card-possible" class="result-card possible" style="display:none">
+      <div class="result-icon-row">
+        <div class="result-icon-circle" style="background:#888">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/><path d="M10 7v4" stroke="white" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="13.5" r="0.75" fill="white"/></svg>
+        </div>
+        <div class="result-heading">This could be a meaningful fit</div>
+      </div>
+      <div class="result-body">Your answers suggest real resonance with this approach, along with some uncertainty that's completely understandable. A free conversation is often the best way to find out if this is the right step — and the right time.</div>
+      <div class="result-signals" id="signals-possible"></div>
+      <a class="cta-btn" href="https://www.avinoamlerner.com/apply">Book a free consultation &rarr;</a>
+      <a class="cta-secondary" href="https://www.avinoamlerner.com/rapid-trauma-solution">Learn more about the RTS</a>
+    </div>
+
+    <div id="result-card-explore" class="result-card explore" style="display:none">
+      <div class="result-icon-row">
+        <div class="result-icon-circle" style="background:var(--amber)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v7M10 14.5v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="result-heading">Now may not be the right moment — but the door is open</div>
+      </div>
+      <div class="result-body">Something in your answers suggests that either more time is needed, or a different kind of support might serve you better right now. That's honest — and it matters. This work requires a certain readiness, and respecting that is part of the process.</div>
+      <div class="result-signals" id="signals-explore"></div>
+      <a class="cta-btn amber-btn" href="https://www.avinoamlerner.com/contact">Reach out to Avinoam &rarr;</a>
+      <a class="cta-secondary" href="https://www.avinoamlerner.com/rapid-trauma-solution">Learn more about the RTS</a>
+    </div>
+
+    <p class="retake" onclick="retake()">Retake the assessment</p>
+  </div>
+
+</div>
+
+<script>
+var scores = [0,0,0,0,0,0,0];
+
+function startQuiz() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  updateProgress(0);
+}
+
+function select(btn, step, score) {
+  var opts = btn.closest('.options').querySelectorAll('.opt');
+  opts.forEach(function(o) { o.classList.remove('selected'); });
+  btn.classList.add('selected');
+  scores[step] = score;
+  var nb = document.getElementById('next' + step);
+  if (nb) nb.classList.add('enabled');
+}
+
+function nextStep(step) {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('[data-step="' + step + '"]').classList.add('active');
+  updateProgress(step);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep(step) {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('[data-step="' + step + '"]').classList.add('active');
+  updateProgress(step);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  document.getElementById('progress').style.width = Math.round((step / 7) * 100) + '%';
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  var total = scores.reduce(function(a, b) { return a + b; }, 0);
+  var stability = scores[6];
+  var openness = scores[4];
+  var outcome;
+
+  if (stability === 0) {
+    outcome = 'explore';
+  } else if (total >= 16 && openness >= 2 && stability >= 2) {
+    outcome = 'strong';
+  } else if (total >= 11) {
+    outcome = 'possible';
+  } else {
+    outcome = 'explore';
+  }
+
+  var sig = {
+    strong: [
+      "You can identify a specific pattern — that's a strong foundation for this work.",
+      "You've likely touched the limits of what insight alone can do.",
+      "Your openness to the subconscious level means the work can go where it needs to go.",
+      "You're ready for resolution, not just understanding."
+    ],
+    possible: [
+      "There's real resonance here — something drew you to explore this.",
+      "Some uncertainty is normal, especially if this approach is new to you.",
+      "A conversation costs nothing and often answers more than a questionnaire can.",
+      "The fact that you completed this says something about your readiness."
+    ],
+    explore: [
+      "Deep work is most effective when you have a stable foundation beneath you.",
+      "There's no rush — and coming when you're ready makes all the difference.",
+      "Other forms of support may be a better first step right now.",
+      "The door to this work is always open when the time is right."
+    ]
+  };
+
+  var el = document.getElementById('signals-' + outcome);
+  var dotClass = outcome === 'explore' ? 'signal-dot amber' : 'signal-dot';
+  sig[outcome].forEach(function(s) {
+    var d = document.createElement('div');
+    d.className = 'signal';
+    d.innerHTML = '<span class="' + dotClass + '"></span><span>' + s + '</span>';
+    el.appendChild(d);
+  });
+
+  document.getElementById('result-card-' + outcome).style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retake() {
+  scores = [0,0,0,0,0,0,0];
+  document.getElementById('result').style.display = 'none';
+  document.querySelectorAll('.opt').forEach(function(o) { o.classList.remove('selected'); });
+  document.querySelectorAll('.btn-next').forEach(function(b) { b.classList.remove('enabled'); });
+  document.querySelectorAll('.result-signals').forEach(function(el) { el.innerHTML = ''; });
+  document.querySelectorAll('.result-card').forEach(function(c) { c.style.display = 'none'; });
+  document.getElementById('quiz').style.display = 'block';
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('[data-step="0"]').classList.add('active');
+  updateProgress(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
